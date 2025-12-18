@@ -18,6 +18,11 @@
 // System.debug(emp.toString());
 // System.debug(emp.greetUser('John Doe'));
 
-Address addr=new Address(12,'MG Road','Pune','MH','411001');
-Person per =new Person('Akash','akash@gmail.com',98765, addr);
-System.debug(per.toString());
+// Address addr=new Address(12,'MG Road','Pune','MH','411001');
+// Person per =new Person('Akash','akash@gmail.com',98765, addr);
+// System.debug(per.toString());
+
+
+PremiumCalculation pc=new PremiumCalculation( 50000, 4,'Unmarried','Temporary Job');
+double premium=pc.calculatePremium(pc.income, pc.maritalStatus, pc.EmployeeStatus, pc.serviceYears);
+System.debug('Calculated Premium: '+premium);
