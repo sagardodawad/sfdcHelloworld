@@ -1,16 +1,72 @@
 public class Bank implements IBankServiceProvider {
-    public Boolean deposit(String accountNumber, Double amount) {
+    
+    public String bankName{get; set;}
+    public String IFSC{get; set;}
+    public List<BankAccount> accounts{get; set;}
+    public Bank(){}
+    public Bank(String bankName, String IFSC, List<BankAccount> accounts) {
+        this.bankName = bankName;
+        this.IFSC = IFSC;
+        this.accounts = accounts;
+    }
+    public BankAccount getAccountByNumber(Integer accountNumber) {
+        BankAccount foundAccount= null;
+        for(BankAccount account: accounts) {
+            if(account.accountNumber == accountNumber) {
+                foundAccount = account;
+                break;
+            }
+        }
+        return foundAccount;
+    }
+    
+    
+    public Boolean deposit(Integer accountNumber, Double amount) {
+        BankAccount account = getAccountByNumber(accountNumber);
+        if(account == null) {
+            System.debug('Account not found');
+            return false;
+        }
+        account.balance += amount;
+
         // Simulate deposit operation
         System.debug('Deposited ' + amount + ' to account ' + accountNumber);
+        System.debug('New Balance: ' + account.balance);
         return true;
     }
-    public Boolean withdraw(String accountNumber, Double amount) {
+    public Boolean withdraw(Integer accountNumber, Double amount) {
+        BankAccount account = getAccountByNumber(accountNumber);
+        if(account == null) {
+            System.debug('Account not found');
+            return false;
+        }
+        if(account.balance < amount) {
+            System.debug('Insufficient balance');
+            return false;
+        }
+        account.balance -= amount;
+
         // Simulate withdraw operation
         System.debug('Withdrew ' + amount + ' from account ' + accountNumber);
+        System.debug('New Balance: ' + account.balance);
         return true;
     }
-    public Boolean transfer(String fromAccount, String toAccount, Double amount) {
-        // Simulate transfer operation
+    public Boolean transfer(Integer fromAccount, Integer toAccount, Double amount) {
+        BankAccount sourceAccount = getAccountByNumber(fromAccount);
+        BankAccount destinationAccount = getAccountByNumber(toAccount);
+        if(sourceAccount == null || destinationAccount == null) {
+            System.debug('One or both accounts not found');
+            return false;
+        }
+        if(sourceAccount.balance < amount) {
+            System.debug('Insufficient balance in source account');
+            return false;
+        }
+        sourceAccount.balance -= amount;
+        destinationAccount.balance += amount;
         System.debug('Transferred ' + amount + ' from account ' + fromAccount + ' to account ' + toAccount);
-        return true;    }
+        System.debug('Source Account New Balance: ' + sourceAccount.balance);
+        System.debug('Destination Account New Balance: ' + destinationAccount.balance);
+        return true;   
+     }
 }
