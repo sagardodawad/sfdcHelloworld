@@ -52,21 +52,34 @@ public class Bank implements IBankServiceProvider {
         return true;
     }
     public Boolean transfer(Integer fromAccount, Integer toAccount, Double amount) {
-        BankAccount sourceAccount = getAccountByNumber(fromAccount);
-        BankAccount destinationAccount = getAccountByNumber(toAccount);
-        if(sourceAccount == null || destinationAccount == null) {
-            System.debug('One or both accounts not found');
+        // BankAccount sourceAccount = getAccountByNumber(fromAccount);
+        // BankAccount destinationAccount = getAccountByNumber(toAccount);
+        // if(sourceAccount == null || destinationAccount == null) {
+        //     System.debug('One or both accounts not found');
+        //     return false;
+        // }
+        // if(sourceAccount.balance < amount) {
+        //     System.debug('Insufficient balance in source account');
+        //     return false;
+        // }
+        // sourceAccount.balance -= amount;
+        // destinationAccount.balance += amount;
+        // System.debug('Transferred ' + amount + ' from account ' + fromAccount + ' to account ' + toAccount);
+        // System.debug('Source Account New Balance: ' + sourceAccount.balance);
+        // System.debug('Destination Account New Balance: ' + destinationAccount.balance);
+        // return true;   
+        Boolean withdrawStatus = withdraw(fromAccount, amount);
+        if(!withdrawStatus) {
             return false;
         }
-        if(sourceAccount.balance < amount) {
-            System.debug('Insufficient balance in source account');
+        Boolean depositStatus = deposit(toAccount, amount);
+        if(!depositStatus) {
+            //rollback withdraw
+            deposit(fromAccount, amount);
             return false;
         }
-        sourceAccount.balance -= amount;
-        destinationAccount.balance += amount;
-        System.debug('Transferred ' + amount + ' from account ' + fromAccount + ' to account ' + toAccount);
-        System.debug('Source Account New Balance: ' + sourceAccount.balance);
-        System.debug('Destination Account New Balance: ' + destinationAccount.balance);
-        return true;   
+        
+        return true;
+        
      }
 }
