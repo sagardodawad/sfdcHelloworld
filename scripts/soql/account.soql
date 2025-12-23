@@ -47,3 +47,42 @@ SELECT COUNT(Name)
  
 
 SELECT COUNT(AccountID) FROM Contact
+
+SELECT Account.Name, COUNT(Id)
+    FROM Contact
+    GROUP BY Account.Name
+
+SELECT Industry, sum(AnnualRevenue) SumOfRevenue
+    FROM Account
+    GROUP BY Industry
+
+
+SELECT First_Name__c, Last_Name__c, Currently_Employed__c,US_Citizen__c
+    FROM Candidate__c
+    WHERE Currently_Employed__c=false AND US_Citizen__c=true
+
+
+SELECT Name, Status__c, Open_Date__c
+    FROM Position__c
+    WHERE Status__c='Open' OR Status__c='NEW'
+    ORDER BY Open_Date__c DESC
+    LIMIT 5
+
+
+SELECT Name,Actual_Salary__c
+    FROM Offer__c
+    WHERE Actual_Salary__c > 50000 And Status__c='accept'
+
+
+//child to parent relationship query
+SELECT Name, Position__c, Position__r.Name
+    FROM Job_Application__c
+
+//parent to child relationship query
+SELECT Name, (SELECT Name FROM Job_Applications__r)
+    FROM Position__c
+
+
+// sosl cant be executed here but can be in developer console
+FIND {Jones} IN ALL FIELDS
+    RETURNING Account(Name), Contact(FirstName, LastName)
