@@ -1,6 +1,7 @@
 import { createElement } from '@lwc/engine-dom';
 import OpportunityCompV2 from 'c/opportunityCompV2';
 
+
 describe('c-opportunity-comp-v-2', () => {
     afterEach(() => {
         // The jsdom instance is shared across test cases in a single file so reset the DOM

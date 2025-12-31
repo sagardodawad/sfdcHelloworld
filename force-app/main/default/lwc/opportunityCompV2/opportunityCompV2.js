@@ -20,6 +20,7 @@ export default class OpportunityCompV2 extends LightningElement {
                     Commission: opp.Amount * 0.20        
             };
             this.oppList.push(obj);
+            
          });    
       }
    }
