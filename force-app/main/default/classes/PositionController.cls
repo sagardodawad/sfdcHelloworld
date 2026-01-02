@@ -13,4 +13,20 @@ public with sharing class PositionController {
         WITH SECURITY_ENFORCED
         ];
     }
+    @AuraEnabled(cacheable=true)
+    public static List<Position__c> getNewPositionRecords(){
+        return [SELECT Name,Open_Date__c,Close_Date__c,Department__c,Location__c
+        FROM Position__c
+        WHERE Status__c='New'
+        WITH SECURITY_ENFORCED
+        ];
+    }
+    @AuraEnabled(cacheable=true)
+    public static List<Position__c> getClosePositionRecords(){
+        return [SELECT Name,Open_Date__c,Close_Date__c,Department__c,Location__c
+        FROM Position__c
+        WHERE Status__c='Close'
+        WITH SECURITY_ENFORCED
+        ];
+    }
 }

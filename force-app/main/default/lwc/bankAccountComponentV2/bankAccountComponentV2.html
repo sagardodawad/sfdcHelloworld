@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title="Bank Accounts">
+        <lightning-button-group slot="actions">
+            <lightning-button label="saving" onclick={getSavingAccounts}></lightning-button>
+            <lightning-button label="salary" onclick={getSalaryAccounts}></lightning-button>
+            <lightning-button label="current" onclick={getCurrentAccounts}></lightning-button>
+        </lightning-button-group>
+        <template if:true={accList}>
+            <table>
+                <thead>
+                    <tr>
+                    <th>Account Name</th>
+                    <th>Account Number</th>     
+                    <th>Account Type</th>     
+                    <th>Balance</th>     
+                    <th>Bank</th>         
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={accList} for:item="acc">
+                         <tr key={acc.Id}>
+                        <td>{acc.Account_Name__c}</td>
+                        <td>{acc.Name}</td>
+                        <td>{acc.Account_Type__c}</td>
+                        <td>{acc.Balance__c}</td>
+                        <td>{acc.Bank__r.Bank_Name__c}</td>
+                    </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+        <template if:true={accError}>
+            <div>
+                {accError}
+            </div>
+        </template>
+    </lightning-card>
+</template>

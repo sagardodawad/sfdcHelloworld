@@ -1,0 +1,42 @@
+<template>
+
+    <lightning-card title="Imperative call Position records" icon-name="standard:position">
+        <lightning-button-group slot="actions">
+    
+            <lightning-button label="New" onclick={loadAllNewPositions}></lightning-button>
+            <lightning-button label="Open" onclick={loadAllOpenPositions}></lightning-button>
+            <lightning-button label="Close" onclick={loadAllClosePositions}></lightning-button>
+        </lightning-button-group>
+         <template if:true={posList}> <!--It will do null check, non-zero check and undefined check -->
+            <table>
+                <thead>
+                    <tr>
+                    <th>Position Title</th>
+                    <th>Open date</th>
+                    <th>Close date</th>
+                    <th>Deparment</th>
+                    <th>location</th>       
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={posList} for:item="pos">
+                    <tr key={pos.Id}>
+                        <td>{pos.Name}</td>
+                        <td>{pos.Open_Date__c}</td>
+                        <td>{pos.Close_Date__c}</td>
+                        <td>{pos.Department__c}</td>
+                        <td>{pos.Location__c}</td>
+                    </tr>
+                    </template>
+                </tbody>
+            </table>
+      </template>
+       <template lwc:if={posError}>
+        <div class="slds-box slds-theme_error">
+
+              {posError}
+
+          </div>
+       </template>
+    </lightning-card>
+</template>
