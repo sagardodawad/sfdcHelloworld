@@ -1,0 +1,24 @@
+<template>
+
+    <lightning-card title="LWC Lifecycle Hooks with Console Logs">
+
+        <!-- Lifecycle Hooks Example -->
+
+        <p>This example logs lifecycle events to the browser's console.</p>
+
+       
+
+    </lightning-card>
+
+    <lightning-button label="Show/Hide Child" onclick={toggleChild}></lightning-button>
+
+    <template if:true={visible} >
+
+        <c-child-component>
+
+            
+        </c-child-component>
+
+    </template>
+
+</template>
