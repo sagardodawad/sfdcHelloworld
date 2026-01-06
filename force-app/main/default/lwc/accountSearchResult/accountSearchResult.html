@@ -1,0 +1,53 @@
+<template>
+
+    <lightning-card>
+
+ <div class="slds-box" >
+
+       Search Result : {searchText}
+
+       <c-account-search-input onsearch={handleSearch}> </c-account-search-input>
+
+ 
+
+       <table class="slds-table slds-table_bordered slds-table_col-bordered slds-table_striped">
+
+        <thead>
+
+            <tr>
+
+                <th>Name</th>
+
+                <th>Type</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <template for:each={searchResult} for:item="res">
+
+                <!--Define a custom attribute using data-<name> = value -->
+
+                <tr key={res.Id} onclick={handleClick}  data-sid={res.Id} >
+
+                    <td>{res.Name}</td>
+
+                    <td>{res.Type}</td>
+
+                   
+
+                </tr>
+
+            </template>
+
+        </tbody>
+
+    </table>
+
+   </div>
+
+</lightning-card>
+
+</template>
